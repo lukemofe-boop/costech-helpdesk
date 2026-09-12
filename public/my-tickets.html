@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Requests - Costech Help Desk</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                Costech Help Desk
+            </div>
+
+            <div class="nav-links">
+                <a href="client-dashboard.html">Dashboard</a>
+                <a href="submit-ticket.html">Submit Request</a>
+                <a href="my-tickets.html">My Requests</a>
+                <a href="/logout">Logout</a>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="tickets-section">
+
+            <div class="tickets-container">
+
+                <h1>My Support Requests</h1>
+
+                <p class="tickets-description">
+                    View and track the status of your support requests.
+                </p>
+
+
+               <div class="tickets-list" id="tickets-list">
+
+    <p>Loading your requests...</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            &copy; 2026 Costech IT Support System
+        </p>
+
+    </footer>
+
+    <script>
+
+    async function loadTickets() {
+
+        const ticketsList = document.getElementById("tickets-list");
+
+        try {
+
+            const response = await fetch("/my-tickets");
+
+            if (!response.ok) {
+                window.location.href = "/login.html";
+                return;
+            }
+
+            const tickets = await response.json();
+
+            if (tickets.length === 0) {
+
+                ticketsList.innerHTML = `
+                    <div class="ticket-card">
+                        <h2>No Requests Yet</h2>
+
+                        <p>
+                            You have not submitted any support requests.
+                        </p>
+
+                        <a href="submit-ticket.html" class="btn">
+                            Submit a Request
+                        </a>
+                    </div>
+                `;
+
+                return;
+            }
+
+            ticketsList.innerHTML = tickets.map(ticket => {
+
+                const priorityClass =
+                    `priority-${ticket.priority.toLowerCase()}`;
+
+                const statusClass =
+                    `status-${ticket.status.toLowerCase().replace(" ", "-")}`;
+
+                return `
+
+                    <div class="ticket-card">
+
+                        <h2>${ticket.title}</h2>
+
+                        <p>
+                            <strong>Request ID:</strong>
+                            #${ticket.id}
+                        </p>
+
+                        <div class="ticket-meta">
+
+                            <span class="ticket-badge ${priorityClass}">
+                                Priority: ${ticket.priority}
+                            </span>
+
+                            <span class="ticket-badge ${statusClass}">
+                                Status: ${ticket.status}
+                            </span>
+
+                        </div>
+
+                        <p>
+    <strong>Category:</strong>
+    ${ticket.category}
+</p>
+
+<p>
+    <strong>Description:</strong>
+    ${ticket.description}
+</p>
+
+${ticket.staff_name ? `
+
+    <div class="assigned-staff-box">
+
+        <strong>Assigned Support Staff:</strong>
+
+        <p>
+            ${ticket.staff_name}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            ${ticket.staff_email}
+        </p>
+
+    </div>
+
+` : ""}
+
+${ticket.payment_required == 1 ? `
+
+    <div class="payment-box">
+
+        <strong>Payment Required</strong>
+
+        <p>
+            Service Charge:
+            <strong>
+                ₦${Number(ticket.amount).toLocaleString()}
+            </strong>
+        </p>
+
+        <p>
+            <strong>Payment Status:</strong>
+
+            <span class="
+                payment-status
+                ${ticket.payment_status === "Paid"
+                    ? "payment-paid"
+                    : "payment-unpaid"}
+            ">
+                ${ticket.payment_status || "Unpaid"}
+            </span>
+        </p>
+
+        ${ticket.payment_status !== "Paid" ? `
+            <p class="payment-note">
+                Please contact Costech support for payment instructions.
+            </p>
+        ` : ""}
+
+    </div>
+
+` : ""}
+
+                        <p class="ticket-date">
+                            <strong>Date Submitted:</strong>
+                            ${ticket.created_at}
+                        </p>
+
+                        ${ticket.resolution_notes ? `
+
+    <div class="resolution-box">
+
+        <strong>Support Resolution</strong>
+
+        <p>
+            ${ticket.resolution_notes}
+        </p>
+
+    </div>
+
+` : ""}
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+        } catch (error) {
+
+            console.error(error);
+
+            ticketsList.innerHTML = `
+                <div class="ticket-card">
+
+                    <h2>Unable to Load Requests</h2>
+
+                    <p>
+                        Something went wrong while loading your requests.
+                    </p>
+
+                </div>
+            `;
+        }
+    }
+
+    loadTickets();
+
+</script>
+
+<script>
+
+    async function checkClientSession() {
+
+        try {
+
+            const response =
+                await fetch("/session-user");
+
+            if (!response.ok) {
+                window.location.href = "/login.html";
+                return;
+            }
+
+            const user =
+                await response.json();
+
+            if (user.role !== "client") {
+                window.location.href = "/admin-dashboard.html";
+                return;
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            window.location.href =
+                "/login.html";
+
+        }
+
+    }
+
+    checkClientSession();
+
+</script>
+
+</body>
+
+</html>

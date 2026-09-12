@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Client Dashboard - Costech Help Desk</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                Costech Help Desk
+            </div>
+
+            <div class="nav-links">
+                <a href="client-dashboard.html">Dashboard</a>
+                <a href="submit-ticket.html">Submit Request</a>
+                <a href="my-tickets.html">My Requests</a>
+                <a href="/logout">Logout</a>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="dashboard">
+
+            <div class="dashboard-header">
+
+                <h1>Client Dashboard</h1>
+
+                <p id="client-welcome">
+    Welcome to the Costech IT Support System.
+</p>
+
+            </div>
+
+            <div class="dashboard-cards client-stats">
+
+    <div class="dashboard-card">
+        <h2>Total Requests</h2>
+
+        <p class="stat-number" id="client-total">
+            -
+        </p>
+
+        <p>
+            All support requests you have submitted.
+        </p>
+    </div>
+
+
+    <div class="dashboard-card">
+        <h2>Pending</h2>
+
+        <p class="stat-number" id="client-pending">
+            -
+        </p>
+
+        <p>
+            Requests waiting for attention.
+        </p>
+    </div>
+
+
+    <div class="dashboard-card">
+        <h2>In Progress</h2>
+
+        <p class="stat-number" id="client-progress">
+            -
+        </p>
+
+        <p>
+            Requests currently being handled.
+        </p>
+    </div>
+
+
+    <div class="dashboard-card">
+        <h2>Resolved</h2>
+
+        <p class="stat-number" id="client-resolved">
+            -
+        </p>
+
+        <p>
+            Requests that have been resolved.
+        </p>
+    </div>
+
+</div>
+
+            <div class="dashboard-cards">
+
+                <div class="dashboard-card">
+                    <h2>Submit Request</h2>
+
+                    <p>
+                        Report a technical problem or request a service.
+                    </p>
+
+                    <a href="submit-ticket.html" class="btn">
+                        Submit Request
+                    </a>
+                </div>
+
+
+                <div class="dashboard-card">
+                    <h2>My Requests</h2>
+
+                    <p>
+                        View and track the status of your support requests.
+                    </p>
+
+                    <a href="my-tickets.html" class="btn">
+                        View Requests
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>
+            &copy; 2026 Costech IT Support System
+        </p>
+    </footer>
+
+<script>
+
+async function loadClientStats() {
+
+    try {
+
+        const response =
+            await fetch("/client-stats");
+
+        if (!response.ok) {
+            return;
+        }
+
+        const stats =
+            await response.json();
+
+        document.getElementById("client-total")
+            .textContent = stats.total;
+
+        document.getElementById("client-pending")
+            .textContent = stats.pending;
+
+        document.getElementById("client-progress")
+            .textContent = stats.inProgress;
+
+        document.getElementById("client-resolved")
+            .textContent = stats.resolved;
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+    async function checkClientSession() {
+
+        try {
+
+            const response =
+                await fetch("/session-user");
+
+
+            if (!response.ok) {
+
+                window.location.href =
+                    "/login.html";
+
+                return;
+            }
+
+
+            const user =
+                await response.json();
+
+
+            if (user.role !== "client") {
+
+                window.location.href =
+                    "/admin-dashboard.html";
+
+                return;
+            }
+
+            document.getElementById("client-welcome")
+    .textContent =
+    `Welcome, ${user.full_name}.`;
+
+        } catch (error) {
+
+            console.error(error);
+
+            window.location.href =
+                "/login.html";
+
+        }
+
+    }
+
+
+    checkClientSession();
+loadClientStats();
+</script>
+
+</body>
+
+</html>

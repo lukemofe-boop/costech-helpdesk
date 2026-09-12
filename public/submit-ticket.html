@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Submit Request - Costech Help Desk</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                Costech Help Desk
+            </div>
+
+            <div class="nav-links">
+                <a href="client-dashboard.html">Dashboard</a>
+                <a href="submit-ticket.html">Submit Request</a>
+                <a href="my-tickets.html">My Requests</a>
+                <a href="/logout">Logout</a>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="ticket-section">
+
+            <div class="ticket-container">
+
+                <h1>Submit Support Request</h1>
+
+                <p class="ticket-description">
+                    Please provide details about the technical issue
+                    or service you require.
+                </p>
+
+
+                <form action="/submit-ticket" method="POST">
+
+                    <div class="form-group">
+
+                        <label for="title">
+                            Request Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="e.g. Software installation problem"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            Request Category
+                        </label>
+
+                        <select id="category" name="category" required>
+
+                            <option value="">
+                                Select a category
+                            </option>
+
+                            <option value="Software Installation">
+                                Software Installation
+                            </option>
+
+                            <option value="Software/License Issue">
+                                Software/License Issue
+                            </option>
+
+                            <option value="Hardware Problem">
+                                Hardware Problem
+                            </option>
+
+                            <option value="Network Problem">
+                                Network Problem
+                            </option>
+
+                            <option value="System Configuration">
+                                System Configuration
+                            </option>
+
+                            <option value="Account/Login Problem">
+                                Account/Login Problem
+                            </option>
+
+                            <option value="Printer/Peripheral Problem">
+                                Printer/Peripheral Problem
+                            </option>
+
+                            <option value="Technical Support">
+                                Technical Support
+                            </option>
+
+                            <option value="Training Request">
+                                Training Request
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="priority">
+                            Priority
+                        </label>
+
+                        <select id="priority" name="priority" required>
+
+                            <option value="">
+                                Select priority
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            rows="6"
+                            placeholder="Describe the problem or service you require..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button type="submit" class="login-btn">
+                        Submit Request
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            &copy; 2026 Costech IT Support System
+        </p>
+
+    </footer>
+
+<script>
+
+    async function checkClientSession() {
+
+        try {
+
+            const response =
+                await fetch("/session-user");
+
+            if (!response.ok) {
+                window.location.href = "/login.html";
+                return;
+            }
+
+            const user =
+                await response.json();
+
+            if (user.role !== "client") {
+                window.location.href = "/admin-dashboard.html";
+                return;
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            window.location.href =
+                "/login.html";
+
+        }
+
+    }
+
+    checkClientSession();
+
+</script>
+
+</body>
+
+</html>

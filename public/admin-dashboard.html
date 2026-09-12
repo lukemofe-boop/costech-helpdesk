@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Costech Help Desk</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                Costech Help Desk
+            </div>
+
+            <div class="nav-links">
+                <a href="admin-dashboard.html">Dashboard</a>
+                <a href="#requests">Requests</a>
+                <a href="/logout">Logout</a>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="dashboard">
+
+            <div class="dashboard-header">
+
+                <h1>Admin Dashboard</h1>
+
+               <p id="admin-welcome">
+    Manage and monitor client support requests.
+</p>
+
+            </div>
+
+
+            <div class="dashboard-cards">
+
+    <div class="dashboard-card">
+        <h2>Total Requests</h2>
+
+        <p class="stat-number" id="total-requests">
+            -
+        </p>
+
+        <p>
+            All support requests submitted by clients.
+        </p>
+    </div>
+
+
+    <div class="dashboard-card">
+        <h2>Pending</h2>
+
+        <p class="stat-number" id="pending-requests">
+            -
+        </p>
+
+        <p>
+            Requests waiting for attention.
+        </p>
+    </div>
+
+
+    <div class="dashboard-card">
+        <h2>In Progress</h2>
+
+        <p class="stat-number" id="progress-requests">
+            -
+        </p>
+
+        <p>
+            Requests currently being handled.
+        </p>
+    </div>
+
+
+    <div class="dashboard-card">
+        <h2>Resolved</h2>
+
+        <p class="stat-number" id="resolved-requests">
+            -
+        </p>
+
+        <p>
+            Successfully resolved requests.
+        </p>
+    </div>
+
+</div>
+
+           <section id="requests" class="admin-requests">
+
+    <h2>All Support Requests</h2>
+
+    <div class="ticket-filters">
+
+        <div class="form-group">
+
+            <label for="search-tickets">
+                Search Requests
+            </label>
+
+            <input
+                type="text"
+                id="search-tickets"
+                placeholder="Search by title, client name, or email..."
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="filter-status">
+                Filter by Status
+            </label>
+
+            <select id="filter-status">
+
+                <option value="All">
+                    All Statuses
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="In Progress">
+                    In Progress
+                </option>
+
+                <option value="Resolved">
+                    Resolved
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="filter-priority">
+                Filter by Priority
+            </label>
+
+            <select id="filter-priority">
+
+                <option value="All">
+                    All Priorities
+                </option>
+
+                <option value="Low">
+                    Low
+                </option>
+
+                <option value="Medium">
+                    Medium
+                </option>
+
+                <option value="High">
+                    High
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+    <label for="filter-category">
+        Filter by Category
+    </label>
+
+    <select id="filter-category">
+
+        <option value="All">
+            All Categories
+        </option>
+
+        <option value="Software Installation">
+            Software Installation
+        </option>
+
+        <option value="Software/License Issue">
+            Software/License Issue
+        </option>
+
+        <option value="Hardware Problem">
+            Hardware Problem
+        </option>
+
+        <option value="Network Problem">
+            Network Problem
+        </option>
+
+        <option value="System Configuration">
+            System Configuration
+        </option>
+
+        <option value="Account/Login Problem">
+            Account/Login Problem
+        </option>
+
+        <option value="Printer/Peripheral Problem">
+            Printer/Peripheral Problem
+        </option>
+
+        <option value="Technical Support">
+            Technical Support
+        </option>
+
+        <option value="Training Request">
+            Training Request
+        </option>
+
+        <option value="Other">
+            Other
+        </option>
+
+    </select>
+
+</div>
+
+
+        <button
+            type="button"
+            class="btn"
+            id="reset-filters"
+        >
+            Reset Filters
+        </button>
+
+    </div>
+
+
+    <div id="admin-tickets">
+
+        <p>Loading support requests...</p>
+
+    </div>
+
+</section>
+
+<section class="admin-users">
+
+    <h2>Registered Clients</h2>
+
+    <p class="users-description">
+        View clients registered in the Costech IT Support System.
+    </p>
+
+
+    <div class="form-group">
+
+        <label for="search-users">
+            Search Clients
+        </label>
+
+        <input
+            type="text"
+            id="search-users"
+            placeholder="Search by name or email..."
+        >
+
+    </div>
+
+
+    <div id="admin-users">
+
+        <p>Loading registered clients...</p>
+
+    </div>
+
+</section>
+<section class="admin-staff-management">
+
+    <h2>Support Staff Management</h2>
+
+    <p class="users-description">
+        Add and manage support staff members who can be assigned
+        to client support requests.
+    </p>
+
+    <div class="staff-management-grid">
+
+        <div class="staff-form-card">
+
+            <h3>Add Support Staff</h3>
+
+            <form action="/add-support-staff" method="POST">
+
+                <div class="form-group">
+
+                    <label for="staff-name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="staff-name"
+                        name="full_name"
+                        placeholder="Enter staff member's full name"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="staff-email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="staff-email"
+                        name="email"
+                        placeholder="Enter staff member's email"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit" class="btn">
+                    Add Support Staff
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="staff-list-card">
+
+            <h3>Current Support Staff</h3>
+
+            <div id="support-staff-management-list">
+
+                <p>Loading support staff...</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="admin-reports">
+
+    <h2>Request Reports</h2>
+
+    <p class="reports-description">
+        Summary of support requests by priority.
+    </p>
+
+    <div class="report-cards">
+
+        <div class="report-card">
+            <h3>Low Priority</h3>
+            <p class="report-number" id="low-priority-count">-</p>
+        </div>
+
+        <div class="report-card">
+            <h3>Medium Priority</h3>
+            <p class="report-number" id="medium-priority-count">-</p>
+        </div>
+
+        <div class="report-card">
+            <h3>High Priority</h3>
+           <p class="report-number" id="high-priority-count">-</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="admin-category-reports">
+
+    <h2>Requests by Category</h2>
+
+    <p class="reports-description">
+        Number of support requests submitted for each category.
+    </p>
+
+    <div id="category-report-list">
+
+        <p>Loading category reports...</p>
+
+    </div>
+
+</section>
+
+<section class="admin-staff-reports">
+
+    <h2>Requests by Support Staff</h2>
+
+    <p class="reports-description">
+        Number of support requests currently assigned to each support staff member.
+    </p>
+
+    <div id="staff-report-list">
+
+        <p>Loading staff reports...</p>
+
+    </div>
+
+</section>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            &copy; 2026 Costech IT Support System
+        </p>
+
+    </footer>
+<script>
+
+    let allTickets = [];
+    let allUsers = [];
+    let allStaff = [];
+
+
+    async function loadAdminTickets() {
+
+        const ticketsContainer =
+            document.getElementById("admin-tickets");
+
+        try {
+
+            const response =
+                await fetch("/admin-tickets");
+
+
+            if (!response.ok) {
+
+                if (response.status === 403) {
+    ticketsContainer.innerHTML = `
+        <div class="ticket-card">
+            <h2>Admin Access Required</h2>
+            <p>You do not have permission to view support requests.</p>
+        </div>
+    `;
+    return;
+}
+
+                throw new Error("Unable to load tickets");
+            }
+
+
+            const tickets = await response.json();
+
+            allTickets = tickets;
+
+            displayTickets(allTickets);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            ticketsContainer.innerHTML = `
+                <div class="ticket-card">
+
+                    <h2>Unable to Load Requests</h2>
+
+                    <p>
+                        Something went wrong while loading
+                        the support requests.
+                    </p>
+
+                </div>
+            `;
+        }
+    }
+
+
+    function displayTickets(tickets) {
+
+        const ticketsContainer =
+            document.getElementById("admin-tickets");
+
+
+        if (tickets.length === 0) {
+
+            ticketsContainer.innerHTML = `
+                <div class="ticket-card">
+
+                    <h2>No Matching Requests</h2>
+
+                    <p>
+                        No support requests match your
+                        search or filter.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        ticketsContainer.innerHTML = tickets.map(ticket => {
+
+            const priorityClass =
+                `priority-${ticket.priority.toLowerCase()}`;
+
+            const statusClass =
+                `status-${ticket.status
+                    .toLowerCase()
+                    .replace(" ", "-")}`;
+
+
+            return `
+
+                <div class="ticket-card">
+
+                    <h2>${ticket.title}</h2>
+
+                    <p>
+                        <strong>Request ID:</strong>
+                        #${ticket.id}
+                    </p>
+
+                    <p>
+                        <strong>Client:</strong>
+                        ${ticket.full_name}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        ${ticket.email}
+                    </p>
+
+                    ${ticket.assigned_staff_id ? `
+
+    <p>
+        <strong>Assigned Staff:</strong>
+        ${allStaff.find(staff =>
+            staff.id == ticket.assigned_staff_id
+        )?.full_name || "Unknown"}
+    </p>
+
+` : `
+    <p>
+        <strong>Assigned Staff:</strong>
+        Not assigned
+    </p>
+`}
+
+
+                    <div class="ticket-meta">
+
+                        <span class="ticket-badge ${priorityClass}">
+                            Priority: ${ticket.priority}
+                        </span>
+
+                        <span class="ticket-badge ${statusClass}">
+                            Status: ${ticket.status}
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        <strong>Category:</strong>
+                        ${ticket.category}
+                    </p>
+
+                    <p>
+                        <strong>Description:</strong>
+                        ${ticket.description}
+                    </p>
+
+                    <p class="ticket-date">
+                        <strong>Date Submitted:</strong>
+                        ${ticket.created_at}
+                    </p>
+
+
+                    <div class="admin-update-box">
+
+                        <form
+                            action="/update-ticket"
+                            method="POST"
+                        >
+
+                        <div class="form-group">
+
+    <label for="staff-${ticket.id}">
+        Assign Support Staff
+    </label>
+
+    <select
+    id="staff-${ticket.id}"
+    name="assigned_staff_id"
+>
+
+    <option value="">
+        Select support staff
+    </option>
+
+    ${allStaff.map(staff => `
+
+        <option
+            value="${staff.id}"
+            ${ticket.assigned_staff_id == staff.id
+                ? "selected"
+                : ""}
+        >
+            ${staff.full_name} (${staff.email})
+        </option>
+
+    `).join("")}
+
+</select>
+
+</div>
+
+                            <input
+                                type="hidden"
+                                name="ticket_id"
+                                value="${ticket.id}"
+                            >
+
+
+                            <div class="form-group">
+
+                                <label
+                                    for="status-${ticket.id}"
+                                >
+                                    Update Status
+                                </label>
+
+
+                                <select
+                                    id="status-${ticket.id}"
+                                    name="status"
+                                    required
+                                >
+
+                                    <option
+                                        value="Pending"
+                                        ${ticket.status === "Pending"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        Pending
+                                    </option>
+
+
+                                    <option
+                                        value="In Progress"
+                                        ${ticket.status === "In Progress"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        In Progress
+                                    </option>
+
+
+                                    <option
+                                        value="Resolved"
+                                        ${ticket.status === "Resolved"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        Resolved
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label
+                                    for="resolution-${ticket.id}"
+                                >
+                                    Resolution Notes
+                                </label>
+
+
+                                <textarea
+                                    id="resolution-${ticket.id}"
+                                    name="resolution_notes"
+                                    rows="4"
+                                    placeholder="Enter details about the solution or action taken..."
+                                >${ticket.resolution_notes || ""}</textarea>
+
+                            </div>
+
+                            <div class="form-group">
+
+    <label for="payment-${ticket.id}">
+        Payment Required
+    </label>
+
+    <select
+    id="payment-${ticket.id}"
+    name="payment_required"
+>
+    <option
+        value="0"
+        ${ticket.payment_required == 0 ? "selected" : ""}
+    >
+        No
+    </option>
+
+    <option
+        value="1"
+        ${ticket.payment_required == 1 ? "selected" : ""}
+    >
+        Yes
+    </option>
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+    <label for="amount-${ticket.id}">
+        Service Charge (₦)
+    </label>
+
+    <input
+    type="number"
+    id="amount-${ticket.id}"
+    name="amount"
+    min="0"
+    step="0.01"
+    value="${ticket.amount || 0}"
+    placeholder="Enter service charge"
+>
+
+</div>
+
+<div class="form-group">
+
+    <label for="payment-status-${ticket.id}">
+        Payment Status
+    </label>
+
+    <select
+        id="payment-status-${ticket.id}"
+        name="payment_status"
+    >
+
+        <option
+            value="Unpaid"
+            ${ticket.payment_status === "Unpaid" ? "selected" : ""}
+        >
+            Unpaid
+        </option>
+
+        <option
+            value="Paid"
+            ${ticket.payment_status === "Paid" ? "selected" : ""}
+        >
+            Paid
+        </option>
+
+    </select>
+
+</div>
+
+                            <button
+                                type="submit"
+                                class="btn"
+                            >
+                                Update Request
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+    }
+
+
+    function filterTickets() {
+
+        const searchText =
+            document.getElementById("search-tickets")
+                .value
+                .toLowerCase();
+
+
+        const statusFilter =
+            document.getElementById("filter-status").value;
+
+
+        const priorityFilter =
+            document.getElementById("filter-priority").value;
+            const categoryFilter =
+    document.getElementById("filter-category").value;
+
+
+        const filteredTickets =
+            allTickets.filter(ticket => {
+
+                const matchesSearch =
+                    ticket.title
+                        .toLowerCase()
+                        .includes(searchText) ||
+
+                    ticket.full_name
+                        .toLowerCase()
+                        .includes(searchText) ||
+
+                    ticket.email
+                        .toLowerCase()
+                        .includes(searchText);
+
+
+                const matchesStatus =
+                    statusFilter === "All" ||
+                    ticket.status === statusFilter;
+
+
+                const matchesPriority =
+                    priorityFilter === "All" ||
+                    ticket.priority === priorityFilter;
+                    const matchesCategory =
+    categoryFilter === "All" ||
+    ticket.category === categoryFilter;
+
+
+               return (
+    matchesSearch &&
+    matchesStatus &&
+    matchesPriority &&
+    matchesCategory
+);
+
+            });
+
+
+        displayTickets(filteredTickets);
+    }
+
+
+    document
+        .getElementById("search-tickets")
+        .addEventListener("input", filterTickets);
+
+
+    document
+        .getElementById("filter-status")
+        .addEventListener("change", filterTickets);
+
+
+    document
+        .getElementById("filter-priority")
+        .addEventListener("change", filterTickets);
+       
+    document
+    .getElementById("filter-category")
+    .addEventListener("change", filterTickets);
+
+
+    document
+        .getElementById("reset-filters")
+        .addEventListener("click", () => {
+
+            document.getElementById("search-tickets").value = "";
+
+            document.getElementById("filter-status").value = "All";
+
+            document.getElementById("filter-priority").value = "All";
+
+            document.getElementById("filter-category").value = "All";
+
+            displayTickets(allTickets);
+
+        });
+
+
+
+
+    async function loadAdminStats() {
+
+        try {
+
+            const response =
+                await fetch("/admin-stats");
+
+
+            if (!response.ok) {
+                throw new Error(
+                    "Unable to load statistics"
+                );
+            }
+
+
+            const stats = await response.json();
+
+
+            document.getElementById("total-requests")
+                .textContent = stats.total;
+
+
+            document.getElementById("pending-requests")
+                .textContent = stats.pending;
+
+
+            document.getElementById("progress-requests")
+                .textContent = stats.inProgress;
+
+
+            document.getElementById("resolved-requests")
+                .textContent = stats.resolved;
+
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+    }
+
+async function loadAdminUsers() {
+
+    const usersContainer =
+        document.getElementById("admin-users");
+
+    try {
+
+        const response =
+            await fetch("/admin-users");
+
+        if (!response.ok) {
+
+           if (response.status === 403) {
+    usersContainer.innerHTML = `
+        <div class="ticket-card">
+            <h2>Admin Access Required</h2>
+            <p>You do not have permission to view registered clients.</p>
+        </div>
+    `;
+    return;
+}
+
+            throw new Error("Unable to load users");
+        }
+
+        const users = await response.json();
+
+        allUsers = users;
+
+        displayUsers(allUsers);
+
+    } catch (error) {
+
+        console.error(error);
+
+        usersContainer.innerHTML = `
+            <div class="ticket-card">
+
+                <h2>Unable to Load Clients</h2>
+
+                <p>
+                    Something went wrong while loading
+                    registered clients.
+                </p>
+
+            </div>
+        `;
+    }
+}
+
+function displayUsers(users) {
+
+    const usersContainer =
+        document.getElementById("admin-users");
+
+
+    if (users.length === 0) {
+
+        usersContainer.innerHTML = `
+            <div class="ticket-card">
+
+                <h2>No Matching Clients</h2>
+
+                <p>
+                    No registered clients match your search.
+                </p>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    usersContainer.innerHTML = users.map(user => {
+
+        return `
+
+            <div class="user-card">
+
+                <div class="user-card-header">
+
+                    <div>
+                        <h3>${user.full_name}</h3>
+
+                        <p class="user-email">
+                            ${user.email}
+                        </p>
+                    </div>
+
+                    <span class="user-id">
+                        Client #${user.id}
+                    </span>
+
+                </div>
+
+
+                <div class="user-card-details">
+
+                    <div class="user-detail">
+
+                        <span class="detail-label">
+                            Support Requests
+                        </span>
+
+                        <strong>
+                            ${user.ticket_count}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="user-detail">
+
+                        <span class="detail-label">
+                            Registered
+                        </span>
+
+                        <strong>
+                            ${user.created_at}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    action="/delete-user"
+                    method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this client account?');"
+                >
+
+                    <input
+                        type="hidden"
+                        name="user_id"
+                        value="${user.id}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="delete-btn"
+                    >
+                        Delete Client
+                    </button>
+
+                </form>
+
+            </div>
+
+        `;
+
+    }).join("");
+}
+
+async function loadSupportStaff() {
+
+    try {
+
+        const response =
+            await fetch("/support-staff");
+
+        if (!response.ok) {
+            throw new Error("Unable to load support staff");
+        }
+
+        const staff = await response.json();
+
+        allStaff = staff;
+
+displayTickets(allTickets);
+    } catch (error) {
+
+        console.error(error);
+
+    }
+}
+
+async function loadPriorityStats() {
+
+    try {
+
+        const response =
+            await fetch("/admin-priority-stats");
+
+        if (!response.ok) {
+            throw new Error(
+                "Unable to load priority statistics"
+            );
+        }
+
+        const stats = await response.json();
+
+        document.getElementById("low-priority-count")
+            .textContent = stats.low;
+
+        document.getElementById("medium-priority-count")
+            .textContent = stats.medium;
+
+        document.getElementById("high-priority-count")
+            .textContent = stats.high;
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+}
+
+async function loadCategoryStats() {
+
+    const categoryContainer =
+        document.getElementById("category-report-list");
+
+    try {
+
+        const response =
+            await fetch("/admin-category-stats");
+
+        if (!response.ok) {
+            throw new Error(
+                "Unable to load category statistics"
+            );
+        }
+
+        const categories = await response.json();
+
+
+        if (categories.length === 0) {
+
+            categoryContainer.innerHTML = `
+                <div class="report-card">
+                    <h3>No Category Data</h3>
+                    <p>No support requests have been submitted yet.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+
+        categoryContainer.innerHTML =
+            categories.map(item => {
+
+                return `
+                    <div class="report-card">
+
+                        <h3>
+                            ${item.category}
+                        </h3>
+
+                        <p class="report-number">
+                            ${item.count}
+                        </p>
+
+                    </div>
+                `;
+
+            }).join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+        categoryContainer.innerHTML = `
+            <div class="report-card">
+                <h3>Unable to Load Reports</h3>
+                <p>
+                    Something went wrong while loading
+                    the category statistics.
+                </p>
+            </div>
+        `;
+    }
+}
+
+async function loadStaffStats() {
+
+    const staffReportContainer =
+        document.getElementById("staff-report-list");
+
+    try {
+
+        const response =
+            await fetch("/admin-staff-stats");
+
+        if (!response.ok) {
+            throw new Error(
+                "Unable to load staff statistics"
+            );
+        }
+
+        const staffStats = await response.json();
+
+
+        if (staffStats.length === 0) {
+
+            staffReportContainer.innerHTML = `
+                <div class="report-card">
+
+                    <h3>No Support Staff</h3>
+
+                    <p>
+                        No support staff members are available.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        staffReportContainer.innerHTML =
+            staffStats.map(staff => {
+
+                return `
+                    <div class="report-card">
+
+                        <h3>
+                            ${staff.full_name}
+                        </h3>
+
+                        <p>
+                            ${staff.email}
+                        </p>
+
+                        <p class="report-number">
+                            ${staff.ticket_count}
+                        </p>
+
+                        <p>
+                            Assigned Requests
+                        </p>
+
+                    </div>
+                `;
+
+            }).join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+        staffReportContainer.innerHTML = `
+            <div class="report-card">
+
+                <h3>Unable to Load Staff Reports</h3>
+
+                <p>
+                    Something went wrong while loading
+                    the support staff statistics.
+                </p>
+
+            </div>
+        `;
+    }
+}
+
+async function loadSupportStaffManagement() {
+
+    const staffContainer =
+        document.getElementById("support-staff-management-list");
+
+    try {
+
+        const response =
+            await fetch("/support-staff");
+
+        if (!response.ok) {
+            throw new Error("Unable to load support staff");
+        }
+
+        const staffMembers = await response.json();
+
+
+        if (staffMembers.length === 0) {
+
+            staffContainer.innerHTML = `
+                <div class="user-card">
+
+                    <h3>No Support Staff</h3>
+
+                    <p>
+                        No support staff members have been added yet.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+       staffContainer.innerHTML =
+    staffMembers.map(staff => {
+
+        return `
+            <div class="user-card">
+
+                <h3>
+                    ${staff.full_name}
+                </h3>
+
+                <p>
+                    <strong>Email:</strong>
+                    ${staff.email}
+                </p>
+
+                <form
+                    action="/delete-support-staff"
+                    method="POST"
+                    onsubmit="return confirm(
+                        'Are you sure you want to delete this support staff member?'
+                    );"
+                >
+
+                    <input
+                        type="hidden"
+                        name="staff_id"
+                        value="${staff.id}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="delete-btn"
+                    >
+                        Delete Staff
+                    </button>
+
+                </form>
+
+            </div>
+        `;
+
+    }).join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+        staffContainer.innerHTML = `
+            <div class="user-card">
+
+                <h3>Unable to Load Staff</h3>
+
+                <p>
+                    Something went wrong while loading
+                    the support staff list.
+                </p>
+
+            </div>
+        `;
+    }
+}
+
+async function checkAdminSession() {
+
+    try {
+
+        const response =
+            await fetch("/session-user");
+
+        if (!response.ok) {
+
+            window.location.href =
+                "/login.html";
+
+            return false;
+        }
+
+        const user =
+            await response.json();
+
+        if (user.role !== "admin") {
+
+            window.location.href =
+                "/client-dashboard.html";
+
+            return false;
+        }
+
+         document.getElementById("admin-welcome")
+    .textContent =
+    `Welcome, ${user.full_name}. Manage and monitor client support requests.`;
+
+
+        return true;
+
+      
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "/login.html";
+
+        return false;
+    }
+
+}
+
+async function startAdminDashboard() {
+
+    const isAdmin =
+        await checkAdminSession();
+
+    if (!isAdmin) {
+        return;
+    }
+
+    loadAdminTickets();
+    loadAdminUsers();
+    loadAdminStats();
+    loadSupportStaff();
+    loadPriorityStats();
+    loadCategoryStats();
+    loadStaffStats();
+    loadSupportStaffManagement();
+
+}
+
+startAdminDashboard();
+</script>
+</body>
+
+</html>
