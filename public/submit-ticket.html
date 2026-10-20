@@ -1,229 +1,113 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Submit Request - Costech Help Desk</title>
-
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Submit a technical support request to the Costech Help Desk." name="description"/>
+<meta content="#0b1014" name="theme-color"/>
+<title>Submit Request | Costech Help Desk</title>
+<link href="css/style.css" rel="stylesheet"/>
 </head>
-
-<body>
-
-    <header>
-        <nav class="navbar">
-
-            <div class="logo">
-                Costech Help Desk
-            </div>
-
-            <div class="nav-links">
-                <a href="client-dashboard.html">Dashboard</a>
-                <a href="submit-ticket.html">Submit Request</a>
-                <a href="my-tickets.html">My Requests</a>
-                <a href="/logout">Logout</a>
-            </div>
-
-        </nav>
-    </header>
-
-
-    <main>
-
-        <section class="ticket-section">
-
-            <div class="ticket-container">
-
-                <h1>Submit Support Request</h1>
-
-                <p class="ticket-description">
-                    Please provide details about the technical issue
-                    or service you require.
-                </p>
-
-
-                <form action="/submit-ticket" method="POST">
-
-                    <div class="form-group">
-
-                        <label for="title">
-                            Request Title
-                        </label>
-
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            placeholder="e.g. Software installation problem"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="category">
-                            Request Category
-                        </label>
-
-                        <select id="category" name="category" required>
-
-                            <option value="">
-                                Select a category
-                            </option>
-
-                            <option value="Software Installation">
-                                Software Installation
-                            </option>
-
-                            <option value="Software/License Issue">
-                                Software/License Issue
-                            </option>
-
-                            <option value="Hardware Problem">
-                                Hardware Problem
-                            </option>
-
-                            <option value="Network Problem">
-                                Network Problem
-                            </option>
-
-                            <option value="System Configuration">
-                                System Configuration
-                            </option>
-
-                            <option value="Account/Login Problem">
-                                Account/Login Problem
-                            </option>
-
-                            <option value="Printer/Peripheral Problem">
-                                Printer/Peripheral Problem
-                            </option>
-
-                            <option value="Technical Support">
-                                Technical Support
-                            </option>
-
-                            <option value="Training Request">
-                                Training Request
-                            </option>
-
-                            <option value="Other">
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="priority">
-                            Priority
-                        </label>
-
-                        <select id="priority" name="priority" required>
-
-                            <option value="">
-                                Select priority
-                            </option>
-
-                            <option value="Low">
-                                Low
-                            </option>
-
-                            <option value="Medium">
-                                Medium
-                            </option>
-
-                            <option value="High">
-                                High
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="description">
-                            Description
-                        </label>
-
-                        <textarea
-                            id="description"
-                            name="description"
-                            rows="6"
-                            placeholder="Describe the problem or service you require..."
-                            required
-                        ></textarea>
-
-                    </div>
-
-
-                    <button type="submit" class="login-btn">
-                        Submit Request
-                    </button>
-
-                </form>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-
-        <p>
-            &copy; 2026 Costech IT Support System
-        </p>
-
-    </footer>
-
-<script>
-
-    async function checkClientSession() {
-
-        try {
-
-            const response =
-                await fetch("/session-user");
-
-            if (!response.ok) {
-                window.location.href = "/login.html";
-                return;
-            }
-
-            const user =
-                await response.json();
-
-            if (user.role !== "client") {
-                window.location.href = "/admin-dashboard.html";
-                return;
-            }
-
-        } catch (error) {
-
-            console.error(error);
-
-            window.location.href =
-                "/login.html";
-
-        }
-
-    }
-
-    checkClientSession();
-
-</script>
-
+<body class="submit-page">
+<!-- NAVIGATION -->
+<header class="site-header">
+<nav aria-label="Main navigation" class="navbar">
+<a aria-label="Costech Helpdesk home" class="brand" href="index.html">
+<img alt="Costech Computers Limited official logo" class="brand-logo" height="35" loading="eager" src="https://costechcomputers.com.ng/wp-content/uploads/2024/09/Costech-Logo-Large-1024x173.png" width="205"/>
+</a>
+<div class="nav-links">
+<a href="client-dashboard.html">Dashboard</a>
+<a aria-current="page" class="active" href="submit-ticket.html">
+            Submit Request
+          </a>
+<a href="my-tickets.html">My Requests</a>
+<a class="nav-login" href="/logout">
+            Logout <span aria-hidden="true">↗</span>
+</a>
+</div>
+</nav>
+</header>
+<!-- SUBMIT REQUEST FORM -->
+<main>
+<section class="ticket-section">
+<div class="ticket-container">
+<span class="section-label">COSTECH SUPPORT</span>
+<h1>Submit Support Request</h1>
+<p class="ticket-description">
+            Tell us what you need help with. Clear details help our support team
+            understand the problem and provide the right assistance.
+          </p>
+<form action="/submit-ticket" method="POST">
+<div class="form-group">
+<label for="title">Request Title</label>
+<input autocomplete="off" id="title" maxlength="150" name="title" placeholder="e.g. Software installation problem" required="" type="text"/>
+<p class="form-hint">Summarise the problem in a few words.</p>
+</div>
+<div class="form-group">
+<label for="category">Request Category</label>
+<select id="category" name="category" required="">
+<option value="">Select a category</option>
+<option value="Software Installation">
+                  Software Installation
+                </option>
+<option value="Software/License Issue">
+                  Software/License Issue
+                </option>
+<option value="Hardware Problem">Hardware Problem</option>
+<option value="Network Problem">Network Problem</option>
+<option value="System Configuration">
+                  System Configuration
+                </option>
+<option value="Account/Login Problem">
+                  Account/Login Problem
+                </option>
+<option value="Printer/Peripheral Problem">
+                  Printer/Peripheral Problem
+                </option>
+<option value="Technical Support">Technical Support</option>
+<option value="Training Request">Training Request</option>
+<option value="Other">Other</option>
+</select>
+</div>
+<div class="form-group">
+<label for="priority">Priority</label>
+<select id="priority" name="priority" required="">
+<option value="">Select priority</option>
+<option value="Low">Low</option>
+<option value="Medium">Medium</option>
+<option value="High">High</option>
+</select>
+<p class="form-hint">
+                Choose High when the issue significantly affects your ability to
+                work. Select the priority that best describes the impact.
+              </p>
+</div>
+<div class="form-group">
+<label for="description">Description</label>
+<textarea id="description" maxlength="3000" name="description" placeholder="Describe the issue, what you were doing when it occurred, and any error message you saw..." required="" rows="6"></textarea>
+<div class="description-meta">
+<span>Include any relevant error messages.</span>
+<span aria-live="off" id="description-count"> 0 / 3000 </span>
+</div>
+</div>
+<div aria-live="polite" class="form-status" hidden="" id="form-status" role="status"></div>
+<button class="submit-button" type="submit">
+              Submit Request <span aria-hidden="true">↗</span>
+</button>
+</form>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="site-footer">
+<div class="footer-bottom">
+<p>© 2026 Costech IT Support System. All rights reserved.</p>
+<span>Built for better support.</span>
+</div>
+</footer>
+<!-- CLIENT SESSION AND FORM ENHANCEMENTS -->
+<script defer="" src="js/submit-ticket.js"></script>
+  <script src="js/animations.js" defer></script>
 </body>
-
 </html>

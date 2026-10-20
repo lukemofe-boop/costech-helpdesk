@@ -1,229 +1,118 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Client Dashboard - Costech Help Desk</title>
-
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="View your Costech IT support requests, track their progress, and submit new requests." name="description"/>
+<meta content="#0b1014" name="theme-color"/>
+<title>Client Dashboard | Costech Helpdesk</title>
+<link href="css/style.css" rel="stylesheet"/>
 </head>
-
-<body>
-
-    <header>
-        <nav class="navbar">
-
-            <div class="logo">
-                Costech Help Desk
-            </div>
-
-            <div class="nav-links">
-                <a href="client-dashboard.html">Dashboard</a>
-                <a href="submit-ticket.html">Submit Request</a>
-                <a href="my-tickets.html">My Requests</a>
-                <a href="/logout">Logout</a>
-            </div>
-
-        </nav>
-    </header>
-
-
-    <main>
-
-        <section class="dashboard">
-
-            <div class="dashboard-header">
-
-                <h1>Client Dashboard</h1>
-
-                <p id="client-welcome">
-    Welcome to the Costech IT Support System.
-</p>
-
-            </div>
-
-            <div class="dashboard-cards client-stats">
-
-    <div class="dashboard-card">
-        <h2>Total Requests</h2>
-
-        <p class="stat-number" id="client-total">
-            -
-        </p>
-
-        <p>
-            All support requests you have submitted.
-        </p>
-    </div>
-
-
-    <div class="dashboard-card">
-        <h2>Pending</h2>
-
-        <p class="stat-number" id="client-pending">
-            -
-        </p>
-
-        <p>
-            Requests waiting for attention.
-        </p>
-    </div>
-
-
-    <div class="dashboard-card">
-        <h2>In Progress</h2>
-
-        <p class="stat-number" id="client-progress">
-            -
-        </p>
-
-        <p>
-            Requests currently being handled.
-        </p>
-    </div>
-
-
-    <div class="dashboard-card">
-        <h2>Resolved</h2>
-
-        <p class="stat-number" id="client-resolved">
-            -
-        </p>
-
-        <p>
-            Requests that have been resolved.
-        </p>
-    </div>
-
+<body class="client-page">
+<!-- NAVIGATION -->
+<header class="site-header">
+<nav aria-label="Main navigation" class="navbar">
+<a aria-label="Costech Helpdesk home" class="brand" href="index.html">
+<img alt="Costech Computers Limited official logo" class="brand-logo" height="35" loading="eager" src="https://costechcomputers.com.ng/wp-content/uploads/2024/09/Costech-Logo-Large-1024x173.png" width="205"/>
+</a>
+<div class="nav-links">
+<a aria-current="page" class="active" href="client-dashboard.html">
+            Dashboard
+          </a>
+<a href="submit-ticket.html">Submit Request</a>
+<a href="my-tickets.html">My Requests</a>
+<a class="nav-login" href="/logout">
+            Logout <span aria-hidden="true">↗</span>
+</a>
 </div>
-
-            <div class="dashboard-cards">
-
-                <div class="dashboard-card">
-                    <h2>Submit Request</h2>
-
-                    <p>
-                        Report a technical problem or request a service.
-                    </p>
-
-                    <a href="submit-ticket.html" class="btn">
-                        Submit Request
-                    </a>
-                </div>
-
-
-                <div class="dashboard-card">
-                    <h2>My Requests</h2>
-
-                    <p>
-                        View and track the status of your support requests.
-                    </p>
-
-                    <a href="my-tickets.html" class="btn">
-                        View Requests
-                    </a>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-        <p>
-            &copy; 2026 Costech IT Support System
-        </p>
-    </footer>
-
-<script>
-
-async function loadClientStats() {
-
-    try {
-
-        const response =
-            await fetch("/client-stats");
-
-        if (!response.ok) {
-            return;
-        }
-
-        const stats =
-            await response.json();
-
-        document.getElementById("client-total")
-            .textContent = stats.total;
-
-        document.getElementById("client-pending")
-            .textContent = stats.pending;
-
-        document.getElementById("client-progress")
-            .textContent = stats.inProgress;
-
-        document.getElementById("client-resolved")
-            .textContent = stats.resolved;
-
-    } catch (error) {
-
-        console.error(error);
-
-    }
-
-}
-
-    async function checkClientSession() {
-
-        try {
-
-            const response =
-                await fetch("/session-user");
-
-
-            if (!response.ok) {
-
-                window.location.href =
-                    "/login.html";
-
-                return;
-            }
-
-
-            const user =
-                await response.json();
-
-
-            if (user.role !== "client") {
-
-                window.location.href =
-                    "/admin-dashboard.html";
-
-                return;
-            }
-
-            document.getElementById("client-welcome")
-    .textContent =
-    `Welcome, ${user.full_name}.`;
-
-        } catch (error) {
-
-            console.error(error);
-
-            window.location.href =
-                "/login.html";
-
-        }
-
-    }
-
-
-    checkClientSession();
-loadClientStats();
-</script>
-
+</nav>
+</header>
+<!-- MAIN DASHBOARD -->
+<main>
+<section class="dashboard">
+<div class="dashboard-header">
+<span class="section-label">YOUR SUPPORT CENTRE</span>
+<h1>Client Dashboard</h1>
+<p aria-live="polite" id="client-welcome">
+            Verifying your account...
+          </p>
+<p>
+            Everything you need to manage your technical support requests, all
+            in one place.
+          </p>
+</div>
+<!-- Accessible error notice -->
+<div aria-live="polite" class="dashboard-notice" hidden="" id="dashboard-notice" role="status">
+<p id="dashboard-notice-text"></p>
+<button class="retry-button" hidden="" id="retry-stats" type="button">
+            Try loading statistics again
+          </button>
+</div>
+<!-- REQUEST STATISTICS -->
+<div class="dashboard-cards client-stats">
+<article class="dashboard-card">
+<h2>Total Requests</h2>
+<p class="stat-number" id="client-total">—</p>
+<p class="stat-caption">All support requests you have submitted.</p>
+</article>
+<article class="dashboard-card">
+<h2>Pending</h2>
+<p class="stat-number" id="client-pending">—</p>
+<p class="stat-caption">Requests waiting for attention.</p>
+</article>
+<article class="dashboard-card">
+<h2>In Progress</h2>
+<p class="stat-number" id="client-progress">—</p>
+<p class="stat-caption">Requests currently being handled.</p>
+</article>
+<article class="dashboard-card">
+<h2>Resolved</h2>
+<p class="stat-number" id="client-resolved">—</p>
+<p class="stat-caption">Requests that have been resolved.</p>
+</article>
+</div>
+<!-- QUICK ACTIONS -->
+<div class="dashboard-header actions-heading">
+<span class="section-label">QUICK ACTIONS</span>
+<h2>What would you like to do?</h2>
+<p>Choose an action to manage your support requests.</p>
+</div>
+<div class="dashboard-cards action-grid">
+<article class="dashboard-card client-action-card">
+<span aria-hidden="true" class="action-icon">+</span>
+<h2>Submit a Request</h2>
+<p>
+              Experiencing a technical problem? Describe the issue and send a
+              request to the Costech support team.
+            </p>
+<a class="btn" href="submit-ticket.html">
+              Submit Request <span aria-hidden="true">→</span>
+</a>
+</article>
+<article class="dashboard-card client-action-card">
+<span aria-hidden="true" class="action-icon">↗</span>
+<h2>My Requests</h2>
+<p>
+              Review your submitted requests, follow their progress, and see
+              their latest status.
+            </p>
+<a class="btn" href="my-tickets.html">
+              View Requests <span aria-hidden="true">→</span>
+</a>
+</article>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="site-footer">
+<div class="footer-bottom">
+<p>© 2026 Costech IT Support System. All rights reserved.</p>
+<span>Built for better support.</span>
+</div>
+</footer>
+<!-- DASHBOARD FUNCTIONALITY -->
+<script defer="" src="js/client-dashboard.js"></script>
+  <script src="js/animations.js" defer></script>
 </body>
-
 </html>

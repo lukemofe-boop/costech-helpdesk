@@ -1,98 +1,92 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Login - Costech Help Desk</title>
-
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Sign in to the Costech Help Desk to submit and manage IT support requests." name="description"/>
+<meta content="#10171d" name="theme-color"/>
+<title>Sign In | Costech Help Desk</title>
+<link href="css/style.css" rel="stylesheet"/>
 </head>
-
 <body>
-
-    <header>
-        <nav class="navbar">
-
-            <div class="logo">
-                Costech Help Desk
-            </div>
-
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="login.html">Login</a>
-            </div>
-
-        </nav>
-    </header>
-
-
-    <main>
-
-        <section class="login-section">
-
-            <div class="login-container">
-
-                <h1>Login</h1>
-
-                <p class="login-description">
-                    Sign in to access the IT Support System.
-                </p>
-
-
-                <form action="/login" method="POST">
-
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            required
-                        >
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            required
-                        >
-                    </div>
-
-
-                    <button type="submit" class="login-btn">
-                        Login
-                    </button>
-
-                </form>
-
-
-                <p class="register-link">
-                    Don't have an account?
-                    <a href="register.html">Create an account</a>
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-        <p>
-            &copy; 2026 Costech IT Support System
-        </p>
-    </footer>
-
+<!-- ==================== NAVIGATION ==================== -->
+<header class="site-header">
+<nav aria-label="Main navigation" class="navbar">
+<a aria-label="Costech Help Desk home" class="brand" href="index.html">
+<img alt="Costech Computers Limited official logo" class="brand-logo" height="35" loading="eager" src="https://costechcomputers.com.ng/wp-content/uploads/2024/09/Costech-Logo-Large-1024x173.png" width="205"/>
+</a>
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a aria-current="page" class="nav-login active" href="login.html">
+            Login <span aria-hidden="true">↗</span>
+</a>
+</div>
+</nav>
+</header>
+<!-- ==================== LOGIN ==================== -->
+<main>
+<section class="login-section">
+<div class="login-container login-page-container">
+<!-- Welcome heading -->
+<div class="login-heading">
+<p class="about-label login-eyebrow">
+<span class="login-eyebrow-dot"></span>
+              COSTECH IT SUPPORT
+            </p>
+<h1>Welcome back<span class="accent-text">.</span></h1>
+<p class="login-description">
+              Sign in to submit support requests, track existing tickets and
+              stay updated on your technical issues.
+            </p>
+</div>
+<!-- Login form -->
+<form action="/login" id="login-form" method="POST">
+<div class="form-group">
+<label for="email">Email Address</label>
+<input autocapitalize="none" autocomplete="username" id="email" name="email" placeholder="you@example.com" required="" spellcheck="false" type="email"/>
+</div>
+<div class="form-group">
+<label for="password">Password</label>
+<div class="password-field">
+<input autocomplete="current-password" id="password" name="password" placeholder="Enter your password" required="" type="password"/>
+<button aria-controls="password" aria-label="Show password" aria-pressed="false" class="password-toggle" id="togglePassword" type="button">
+                  Show
+                </button>
+</div>
+</div>
+<button class="login-btn login-submit" type="submit">
+<span>Sign In</span>
+<span aria-hidden="true" class="login-submit-arrow">→</span>
+</button>
+</form>
+<!-- Registration link -->
+<div class="login-divider">
+<span>NEW TO COSTECH HELP DESK?</span>
+</div>
+<p class="register-link">
+            Don't have an account?
+            <a href="register.html">Create an account</a>
+</p>
+<div class="login-security-note">
+<span aria-hidden="true">🔒</span>
+<span>Your account is protected by secure sign-in.</span>
+</div>
+</div>
+</section>
+</main>
+<!-- ==================== FOOTER ==================== -->
+<footer>
+<p>© 2026 Costech Computers Limited. All rights reserved.</p>
+<p>
+<a href="index.html">Home</a>
+<span aria-hidden="true"> · </span>
+<a href="about.html">About</a>
+</p>
+</footer>
+<!-- ==================== PASSWORD VISIBILITY ==================== -->
+<script defer="" src="js/login.js"></script>
+  <script src="js/animations.js" defer></script>
 </body>
 </html>
